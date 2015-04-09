@@ -19,7 +19,6 @@ class Person(Base):
         return "<Person(name = '%s', job = '%s')>" % (self.name, self.job)
 
 
-print Person.__table__
 
 Base.metadata.create_all(engine)
 
@@ -33,4 +32,9 @@ Goian = Person(name='Goian', job='Football player')
 session.add_all([Messi, Mutu, Marica, Torje, Hagi, Goian])
 session.commit()
 
+with open('players', 'r') as f:
+    for line in f:
+        t = Person(name=line.strip(), job='Footbal player')
+        session.add(t)
 
+session.commit()
